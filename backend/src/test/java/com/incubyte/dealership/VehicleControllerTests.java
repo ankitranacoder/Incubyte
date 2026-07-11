@@ -152,4 +152,45 @@ public class VehicleControllerTests {
                 .header("Authorization", userToken))
                 .andExpect(status().isForbidden());
     }
+
+    @Test
+    public void shouldPurchaseVehicleSuccessfully() throws Exception {
+        Vehicle savedVehicle = vehicleRepository.save(new Vehicle("Honda", "Civic", "Sedan", 22000.00, 8));
+
+        mockMvc.perform(post("/api/vehicles/" + savedVehicle.getId() + "/purchase")
+                .header("Authorization", userToken))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.quantity").value(7));
+    }
+
+    @Test
+    public void shouldFailToPurchaseOutOfStockVehicle() throws Exception {
+        Vehicle savedVehicle = vehicleRepository.save(new Vehicle("Honda", "Civic", "Sedan", 22000.00, 0));
+
+        mockMvc.perform(post("/api/vehicles/" + savedVehicle.getId() + "/purchase")
+                .header("Authorization", userToken))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Vehicle is out of stock"));
+    }
+
+    @Test
+    public void shouldAllowAdminToRestockVehicle() throws Exception {
+        Vehicle savedVehicle = vehicleRepository.save(new Vehicle("Honda", "Civic", "Sedan", 22000.00, 8));
+
+        mockMvc.perform(post("/api/vehicles/" + savedVehicle.getId() + "/restock")
+                .header("Authorization", adminToken)
+                .param("quantity", "5"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.quantity").value(13));
+    }
+
+    @Test
+    public void shouldDenyUserToRestockVehicle() throws Exception {
+        Vehicle savedVehicle = vehicleRepository.save(new Vehicle("Honda", "Civic", "Sedan", 22000.00, 8));
+
+        mockMvc.perform(post("/api/vehicles/" + savedVehicle.getId() + "/restock")
+                .header("Authorization", userToken)
+                .param("quantity", "5"))
+                .andExpect(status().isForbidden());
+    }
 }

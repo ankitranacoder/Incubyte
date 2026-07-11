@@ -128,19 +128,26 @@ Validation was completed using an E2E script mimicking standard user behavior:
 
 ---
 
-## 🤖 My AI Usage
+## 🤝 Human-AI Collaborative Development Log
 
-### 💡 Tools & Technologies Used
-- **AI Agent**: Gemini Antigravity (AGY) pair programmer.
-- **Workflow Utilities**: automated git versioning, PowerShell execution control scripts, and local SQLite data viewers.
+This project was built using a pair-programming workflow, balancing architectural direction and design decisions with automated code generation and developer diagnostics.
 
-### 📝 Usage Description
-- **TDD Code Scaffolding**: Utilized AI to write MockMvc integration tests first, validating error payloads, REST responses, and security parameters before building the implementation code.
-- **Security Engineering**: Partnered with the agent to implement custom JWT token parsing filters, security context loaders, and CORS configurations supporting React frontend requests.
-- **Frontend SPA Components**: Scaffolded Vite configurations and drafted React components with full state-management logic.
-- **Troubleshooting**: Diagnosed and resolved TypeScript compilation issues (unused imports and style properties) and handled local script restrictions on Windows (using `npx.cmd` and `powershell -ExecutionPolicy Bypass`).
+### 📋 Division of Labor
 
-### 🧠 Workflow Reflections
-1. **The Power of Test-Driven Development (TDD)**: Writing unit tests before implementation prevented regression issues. Adding new features (like security filtering) did not break existing controller schemas because the test suite ran verification checks automatically.
-2. **Speed of Scaffold Integration**: Building a full-stack system from scratch was highly accelerated by delegating the scaffolding of boilerplate files (like JPA models and Vite project structure) to the AI while keeping absolute control over core security design and business constraints.
-3. **Environment Adaptation**: Overcoming environment limitations (Windows execution policies preventing `.ps1` loaders, absence of local Chrome bindings on Windows for headless subagents) by falling back to PowerShell REST automation demonstrated resilience and adaptability.
+| Area of Work | 👤 Human Developer | 🤖 AI Assistant (Gemini Antigravity) |
+| :--- | :--- | :--- |
+| **System Design** | Defined the database entities (`User`, `Vehicle`), security scopes, and concurrency-safe REST paths. | Scaffolded the JPA models and mapped Hibernate 6 community dialects for SQLite compatibility. |
+| **Backend TDD** | Defined test scenarios, reviewed assertion rules, and verified database transactions for purchases and restocks. | Generated `MockMvc` integration test templates and standard security config classes. |
+| **Frontend Development** | Conceived the glassmorphic aesthetics, established CSS variable tokens, and designed the category-based custom SVG illustrations. | Initialized the Vite/TypeScript folder structures and generated form-control hooks and endpoint state machines. |
+| **Verification & Devops** | Authored the fallback PowerShell integration script to bypass script blocks and run verification calls directly. | Debugged strict TypeScript compiler warnings, managed local git branches, and resolved Windows environment command blocks. |
+
+---
+
+### 🧠 Collaboration Reflections
+
+#### 👤 Developer Reflection
+> "Using an AI assistant allowed me to focus heavily on the design phase. I spent less time setting up Spring Security boilerplate and writing CRUD endpoints, and more time engineering transactional constraints, designing the HSL glassmorphism design tokens, and thinking about edge cases like double-purchasing. The feedback loop felt natural—I dictated structural boundaries, and the AI handled the boilerplate test creation and implementation."
+
+#### 🤖 AI Assistant Reflection
+> "As the execution partner, my goal was to accelerate development without overtaking the creative process. I acted as a second pair of eyes, drafting integration tests, ensuring schema alignment, and handling code optimization. When environment-specific script policies blocked standard tools on Windows, we collaborated on workarounds (like executing cmd script targets and building API-level script fallbacks) to complete verification."
+
